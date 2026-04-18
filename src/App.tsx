@@ -11,34 +11,36 @@ import Contracts from "./pages/dashboard/Contracts";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<DashboardLayout />}>
-          <Route index element={<DashboardHome />} />
-          <Route path="projects" element={<Projects />} />
-          <Route path="contracts" element={<Contracts />} />
-          <Route path="ipcs" element={<IPCs />} />
-          <Route path="equipment" element={<Equipment />} />
-          <Route path="supplies" element={<Supplies />} />
-          <Route
-            path="subcontractors"
-            element={<div className="text-center py-10">المقاولين</div>}
-          />
-          <Route
-            path="supply-chain"
-            element={<div className="text-center py-10">سلسلة التوريد</div>}
-          />
-          <Route
-            path="reports"
-            element={<div className="text-center py-10">التقارير</div>}
-          />
-        </Route>
-        <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="*" element={<Navigate to="/login" />} />
-      </Routes>
-    </BrowserRouter>
+    <div dir="rtl">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/dashboard" element={<DashboardLayout />}>
+            <Route index element={<DashboardHome />} />
+            <Route path="projects" element={<Projects />} />
+            <Route path="contracts" element={<Contracts />} />
+            <Route path="ipcs" element={<IPCs />} />
+            <Route path="equipment" element={<Equipment />} />
+            <Route path="supplies" element={<Supplies />} />
+            <Route
+              path="subcontractors"
+              element={<div className="text-center py-10">المقاولين</div>}
+            />
+            <Route
+              path="supply-chain"
+              element={<div className="text-center py-10">سلسلة التوريد</div>}
+            />
+            <Route
+              path="reports"
+              element={<div className="text-center py-10">التقارير</div>}
+            />
+          </Route>
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="*" element={<Navigate to="/login" />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 

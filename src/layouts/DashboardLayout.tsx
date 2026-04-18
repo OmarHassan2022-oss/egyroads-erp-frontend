@@ -43,14 +43,17 @@ export default function DashboardLayout() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
-      {/* Sidebar */}
+    <div dir="rtl" className="min-h-screen bg-gray-50 flex">
+      {/* Sidebar - RTL: positioned on the right */}
       <div
-        className={`${sidebarOpen ? "w-64" : "w-20"} bg-gray-800 text-white transition-all duration-300`}
+        className={`${
+          sidebarOpen ? "w-64" : "w-20"
+        } bg-gradient-to-b from-orange-600 to-amber-700 text-white transition-all duration-300 fixed top-0 bottom-0 end-0`}
+        style={{ right: 0 }}
       >
-        <div className="p-4 border-b border-gray-700">
+        <div className="p-4 border-b border-orange-500/30">
           <h1 className="text-xl font-bold">EgyRoads ERP</h1>
-          <p className="text-sm text-gray-400">نظام المقاولات</p>
+          <p className="text-sm text-orange-100">نظام المقاولات</p>
         </div>
 
         <nav className="mt-4">
@@ -58,24 +61,24 @@ export default function DashboardLayout() {
             <Link
               key={item.path}
               to={item.path}
-              className="flex items-center px-4 py-3 hover:bg-gray-700 text-gray-300 hover:text-white"
+              className="flex items-center px-4 py-3 hover:bg-orange-500/30 text-orange-100 hover:text-white rounded-md mx-2"
             >
-              <span className="text-xl mr-3">{item.icon}</span>
+              <span className="text-xl ml-3">{item.icon}</span>
               {sidebarOpen && <span>{item.name}</span>}
             </Link>
           ))}
         </nav>
 
-        <div className="absolute bottom-0 w-64 p-4 border-t border-gray-700">
+        <div className="absolute bottom-0 w-full p-4 border-t border-orange-500/30">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="w-full py-2 bg-gray-700 rounded mb-2"
+            className="w-full py-2 bg-orange-500/50 rounded mb-2 hover:bg-orange-500 transition-colors"
           >
             {sidebarOpen ? "إخفاء" : "إظهار"}
           </button>
           <button
             onClick={handleLogout}
-            className="w-full py-2 bg-red-600 rounded hover:bg-red-700"
+            className="w-full py-2 bg-red-500/80 rounded hover:bg-red-600 transition-colors"
           >
             خروج
           </button>
@@ -83,18 +86,18 @@ export default function DashboardLayout() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col" style={{ marginRight: sidebarOpen ? "16rem" : "5rem" }}>
         {/* Header */}
         <header className="bg-white shadow-sm p-4 flex justify-between items-center">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="text-gray-600 hover:text-gray-900"
+            className="text-orange-600 hover:text-orange-700"
           >
             ☰
           </button>
           <div className="flex items-center gap-4">
             <span className="text-gray-700">{user.fullName}</span>
-            <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">
+            <span className="bg-orange-100 text-orange-800 px-2 py-1 rounded text-sm">
               {user.role}
             </span>
           </div>
