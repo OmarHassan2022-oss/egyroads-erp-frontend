@@ -1,5 +1,6 @@
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState, useMemo } from "react";
+import { useTheme } from "../context/ThemeContext";
 import type { User } from "../types";
 
 const getUserFromStorage = (): User | null => {
@@ -9,6 +10,7 @@ const getUserFromStorage = (): User | null => {
 
 export default function DashboardLayout() {
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
   const user = useMemo(() => {
     const token = localStorage.getItem("token");
     if (!token) return null;
@@ -43,12 +45,16 @@ export default function DashboardLayout() {
   ];
 
   return (
-    <div dir="rtl" className="min-h-screen bg-gray-50 flex">
-      {/* Sidebar - RTL: positioned on the right */}
+    <div
+      dir="rtl"
+      className={`min-h-screen flex ${
+        theme === "dark" ? "bg-slate-900" : "bg-gray-50"
+      }`}
+    >
       <div
         className={`${
           sidebarOpen ? "w-64" : "w-20"
-        } bg-gradient-to-b from-orange-600 to-amber-700 text-white transition-all duration-300 fixed top-0 bottom-0 end-0`}
+        } bg-gradient-to-b from-orange-600 to-amber-700 text-white transition-all duration-300 fixed top-0 bottom-0 end-0 z-50`}
         style={{ right: 0 }}
       >
         <div className="p-4 border-b border-orange-500/30">
@@ -61,9 +67,9 @@ export default function DashboardLayout() {
             <Link
               key={item.path}
               to={item.path}
-              className="flex items-center px-4 py-3 hover:bg-orange-500/30 text-orange-100 hover:text-white rounded-md mx-2"
+              className="flex items-center px-4 py-3 hover:bg-orange-500/30 text-orange-100 hover:text-white rounded-md mx-2 transition-colors"
             >
-              <span className="text-xl ml-3">{item.icon}</span>
+              <span className="text-xl ms-3">{item.icon}</span>
               {sidebarOpen && <span>{item.name}</span>}
             </Link>
           ))}
@@ -85,26 +91,61 @@ export default function DashboardLayout() {
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col" style={{ marginRight: sidebarOpen ? "16rem" : "5rem" }}>
-        {/* Header */}
-        <header className="bg-white shadow-sm p-4 flex justify-between items-center">
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="text-orange-600 hover:text-orange-700"
-          >
-            ☰
-          </button>
+      <div
+        className="flex-1 flex flex-col transition-all duration-300"
+        style={{ marginRight: sidebarOpen ? "16rem" : "5rem" }}
+      >
+        <header
+          className={`shadow-sm p-4 flex justify-between items-center ${
+            theme === "dark" ? "bg-slate-800" : "bg-white"
+          }`}
+        >
           <div className="flex items-center gap-4">
-            <span className="text-gray-700">{user.fullName}</span>
-            <span className="bg-orange-100 text-orange-800 px-2 py-1 rounded text-sm">
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className={`text-2xl ${
+                theme === "dark" ? "text-orange-400" : "text-orange-600"
+              } hover:opacity-80`}
+            >
+              ☰
+            </button>
+          </div>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={toggleTheme}
+              className={`p-2 rounded-full transition-colors ${
+                theme === "dark"
+                  ? "bg-slate-700 hover:bg-slate-600 text-yellow-400"
+                  : "bg-orange-100 hover:bg-orange-200 text-orange-600"
+              }`}
+              title={theme === "dark" ? "الوضع الفاتح" : "الوضع الداكن"}
+            >
+              {theme === "dark" ? "☀️" : "🌙"}
+            </button>
+            <span
+              className={
+                theme === "dark" ? "text-gray-200" : "text-gray-700"
+              }
+            >
+              {user.fullName}
+            </span>
+            <span
+              className={`px-2 py-1 rounded text-sm ${
+                theme === "dark"
+                  ? "bg-orange-900/50 text-orange-300"
+                  : "bg-orange-100 text-orange-800"
+              }`}
+            >
               {user.role}
             </span>
           </div>
         </header>
 
-        {/* Page Content */}
-        <main className="p-6">
+        <main
+          className={`p-6 flex-1 ${
+            theme === "dark" ? "bg-slate-900" : "bg-gray-50"
+          }`}
+        >
           <Outlet />
         </main>
       </div>
