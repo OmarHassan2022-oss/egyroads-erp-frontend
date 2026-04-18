@@ -248,47 +248,47 @@ export default function Supplies() {
     switch (status) {
       case "approved":
       case "purchased":
-        return "bg-green-100 text-green-800";
+        return "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
       case "pending":
-        return "bg-yellow-100 text-yellow-800";
+        return "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30";
       case "rejected":
-        return "bg-red-100 text-red-800";
+        return "bg-red-500/20 text-red-400 border border-red-500/30";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-gray-500/20 text-gray-400 border border-gray-500/30";
     }
   };
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-gray-500">جاري التحميل...</div>
+      <div className="flex items-center justify-center h-64" dir="rtl">
+        <div className="text-[#8a95aa]">جاري التحميل...</div>
       </div>
     );
   }
 
   return (
-    <div>
+    <div dir="rtl">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">اللوازم وا��مستودعات</h1>
+        <h1 className="text-2xl font-bold text-[#e8eef4]">اللوازم والمستودعات</h1>
       </div>
 
       <div className="mb-4 flex gap-2">
         <button
           onClick={() => setActiveTab("materials")}
-          className={`px-4 py-2 rounded-lg ${
+          className={`px-4 py-2 rounded-lg font-medium ${
             activeTab === "materials"
-              ? "bg-purple-600 text-white"
-              : "bg-gray-200 text-gray-700"
+              ? "bg-[#f5a623] text-[#0e1117]"
+              : "bg-[#1e2738] text-[#e8eef4] border border-[#2a3448]"
           }`}
         >
           المواد
         </button>
         <button
           onClick={() => setActiveTab("requests")}
-          className={`px-4 py-2 rounded-lg ${
+          className={`px-4 py-2 rounded-lg font-medium ${
             activeTab === "requests"
-              ? "bg-purple-600 text-white"
-              : "bg-gray-200 text-gray-700"
+              ? "bg-[#f5a623] text-[#0e1117]"
+              : "bg-[#1e2738] text-[#e8eef4] border border-[#2a3448]"
           }`}
         >
           طلبات الشراء
@@ -303,79 +303,79 @@ export default function Supplies() {
                 resetMaterialForm();
                 setShowMaterialModal(true);
               }}
-              className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700"
+              className="bg-[#f5a623] text-[#0e1117] px-4 py-2 rounded-lg hover:bg-[#d4921e] font-medium"
             >
               + إضافة مواد
             </button>
           </div>
 
-          <div className="bg-white rounded-lg shadow overflow-hidden">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+          <div className="bg-[#161c27] rounded-lg border border-[#2a3448] overflow-hidden">
+            <table className="min-w-full divide-y divide-[#2a3448]">
+              <thead className="bg-[#1e2738]">
                 <tr>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                     اسم المواد
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                     الرمز
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                     الوحدة
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                     المخزون الحالي
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                     الحد الأدنى
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                     السعر
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                     الإجراءات
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-[#161c27] divide-y divide-[#2a3448]">
                 {materials.map((material) => (
-                  <tr key={material.materialId} className="hover:bg-gray-50">
+                  <tr key={material.materialId} className="hover:bg-[#1e2738]">
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-[#e8eef4]">
                         {material.materialName}
                       </div>
                       {material.category && (
-                        <div className="text-sm text-gray-500">
+                        <div className="text-sm text-[#8a95aa]">
                           {material.category}
                         </div>
                       )}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-[#8a95aa]">
                       {material.materialCode}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-[#8a95aa]">
                       {material.unit}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       <span
                         className={
                           material.currentStock < material.minStock
-                            ? "text-red-600 font-medium"
-                            : "text-gray-900"
+                            ? "text-red-400 font-medium"
+                            : "text-[#e8eef4]"
                         }
                       >
                         {material.currentStock}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-[#8a95aa]">
                       {material.minStock}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-[#8a95aa]">
                       {formatCurrency(material.unitPrice)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       <button
                         onClick={() => handleEditMaterial(material)}
-                        className="text-blue-600 hover:text-blue-900 ml-3"
+                        className="text-[#f5a623] hover:text-[#d4921e] ml-3"
                       >
                         تعديل
                       </button>
@@ -383,7 +383,7 @@ export default function Supplies() {
                         onClick={() =>
                           handleDeleteMaterial(material.materialId)
                         }
-                        className="text-red-600 hover:text-red-900"
+                        className="text-red-400 hover:text-red-300"
                       >
                         حذف
                       </button>
@@ -394,7 +394,7 @@ export default function Supplies() {
                   <tr>
                     <td
                       colSpan={7}
-                      className="px-6 py-4 text-center text-gray-500"
+                      className="px-6 py-4 text-center text-[#8a95aa]"
                     >
                       لا توجد مواد
                     </td>
@@ -414,49 +414,49 @@ export default function Supplies() {
                 resetPRForm();
                 setShowPRModal(true);
               }}
-              className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700"
+              className="bg-[#f5a623] text-[#0e1117] px-4 py-2 rounded-lg hover:bg-[#d4921e] font-medium"
             >
               + طلب شراء
             </button>
           </div>
 
-          <div className="bg-white rounded-lg shadow overflow-hidden">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+          <div className="bg-[#161c27] rounded-lg border border-[#2a3448] overflow-hidden">
+            <table className="min-w-full divide-y divide-[#2a3448]">
+              <thead className="bg-[#1e2738]">
                 <tr>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                     رقم الطلب
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                     المشروع
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                     التاريخ
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                     المطلوب بواسطة
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                     الحالة
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                     الإجراءات
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-[#161c27] divide-y divide-[#2a3448]">
                 {purchaseRequests.map((pr) => (
-                  <tr key={pr.prId} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  <tr key={pr.prId} className="hover:bg-[#1e2738]">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#e8eef4]">
                       {pr.prNumber}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-[#8a95aa]">
                       {pr.projectName || pr.projectId || "-"}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-[#8a95aa]">
                       {formatDate(pr.requestDate)}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-[#8a95aa]">
                       {pr.requestedBy || "-"}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -471,13 +471,13 @@ export default function Supplies() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       <button
                         onClick={() => handleEditPR(pr)}
-                        className="text-blue-600 hover:text-blue-900 ml-3"
+                        className="text-[#f5a623] hover:text-[#d4921e] ml-3"
                       >
                         تعديل
                       </button>
                       <button
                         onClick={() => handleDeletePR(pr.prId)}
-                        className="text-red-600 hover:text-red-900"
+                        className="text-red-400 hover:text-red-300"
                       >
                         حذف
                       </button>
@@ -488,7 +488,7 @@ export default function Supplies() {
                   <tr>
                     <td
                       colSpan={6}
-                      className="px-6 py-4 text-center text-gray-500"
+                      className="px-6 py-4 text-center text-[#8a95aa]"
                     >
                       لا توجد طلبات شراء
                     </td>
@@ -501,15 +501,15 @@ export default function Supplies() {
       )}
 
       {showMaterialModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <h2 className="text-xl font-bold mb-4">
-              {editingMaterial ? "تعديل مواد" : "إضافة م��اد جديده"}
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+          <div className="bg-[#161c27] rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-[#2a3448]">
+            <h2 className="text-xl font-bold mb-4 text-[#e8eef4]">
+              {editingMaterial ? "تعديل مواد" : "إضافة مواد جديده"}
             </h2>
             <form onSubmit={handleMaterialSubmit}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     اسم المواد *
                   </label>
                   <input
@@ -522,11 +522,11 @@ export default function Supplies() {
                         materialName: e.target.value,
                       })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     رمز المواد *
                   </label>
                   <input
@@ -539,11 +539,11 @@ export default function Supplies() {
                         materialCode: e.target.value,
                       })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     الوحدة
                   </label>
                   <select
@@ -551,7 +551,7 @@ export default function Supplies() {
                     onChange={(e) =>
                       setMaterialForm({ ...materialForm, unit: e.target.value })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   >
                     <option value="piece">قطعة</option>
                     <option value="ton">طن</option>
@@ -562,7 +562,7 @@ export default function Supplies() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     الفئة
                   </label>
                   <input
@@ -574,11 +574,11 @@ export default function Supplies() {
                         category: e.target.value,
                       })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     المخزون الحالي
                   </label>
                   <input
@@ -590,11 +590,11 @@ export default function Supplies() {
                         currentStock: Number(e.target.value),
                       })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     الحد الأدنى للمخزون
                   </label>
                   <input
@@ -606,11 +606,11 @@ export default function Supplies() {
                         minStock: Number(e.target.value),
                       })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     سعر الوحدة
                   </label>
                   <input
@@ -622,7 +622,7 @@ export default function Supplies() {
                         unitPrice: Number(e.target.value),
                       })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
               </div>
@@ -633,13 +633,13 @@ export default function Supplies() {
                     setShowMaterialModal(false);
                     resetMaterialForm();
                   }}
-                  className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50"
+                  className="px-4 py-2 border border-[#2a3448] text-[#e8eef4] rounded hover:bg-[#1e2738]"
                 >
                   إلغاء
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
+                  className="px-4 py-2 bg-[#f5a623] text-[#0e1117] rounded hover:bg-[#d4921e] font-medium"
                 >
                   {editingMaterial ? "تحديث" : "إضافة"}
                 </button>
@@ -650,15 +650,15 @@ export default function Supplies() {
       )}
 
       {showPRModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <h2 className="text-xl font-bold mb-4">
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+          <div className="bg-[#161c27] rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-[#2a3448]">
+            <h2 className="text-xl font-bold mb-4 text-[#e8eef4]">
               {editingPR ? "تعديل طلب شراء" : "إضافة طلب شراء جديد"}
             </h2>
             <form onSubmit={handlePRSubmit}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     رقم الطلب *
                   </label>
                   <input
@@ -668,11 +668,11 @@ export default function Supplies() {
                     onChange={(e) =>
                       setPRForm({ ...prForm, prNumber: e.target.value })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     المشروع
                   </label>
                   <select
@@ -680,7 +680,7 @@ export default function Supplies() {
                     onChange={(e) =>
                       setPRForm({ ...prForm, projectId: e.target.value })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   >
                     <option value="">اختر المشروع</option>
                     {projects.map((project) => (
@@ -691,7 +691,7 @@ export default function Supplies() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     تاريخ الطلب
                   </label>
                   <input
@@ -700,11 +700,11 @@ export default function Supplies() {
                     onChange={(e) =>
                       setPRForm({ ...prForm, requestDate: e.target.value })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     المطلوب بواسطة
                   </label>
                   <input
@@ -713,11 +713,11 @@ export default function Supplies() {
                     onChange={(e) =>
                       setPRForm({ ...prForm, requestedBy: e.target.value })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     الحالة
                   </label>
                   <select
@@ -728,7 +728,7 @@ export default function Supplies() {
                         status: e.target.value as PRFormData["status"],
                       })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   >
                     <option value="pending">قيد الانتظار</option>
                     <option value="approved">معتمد</option>
@@ -737,7 +737,7 @@ export default function Supplies() {
                   </select>
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     ملاحظات
                   </label>
                   <textarea
@@ -746,7 +746,7 @@ export default function Supplies() {
                       setPRForm({ ...prForm, notes: e.target.value })
                     }
                     rows={3}
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
               </div>
@@ -757,13 +757,13 @@ export default function Supplies() {
                     setShowPRModal(false);
                     resetPRForm();
                   }}
-                  className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50"
+                  className="px-4 py-2 border border-[#2a3448] text-[#e8eef4] rounded hover:bg-[#1e2738]"
                 >
                   إلغاء
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
+                  className="px-4 py-2 bg-[#f5a623] text-[#0e1117] rounded hover:bg-[#d4921e] font-medium"
                 >
                   {editingPR ? "تحديث" : "إضافة"}
                 </button>

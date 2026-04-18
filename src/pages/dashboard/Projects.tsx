@@ -69,6 +69,19 @@ export default function Projects() {
     contractValue: 0,
   });
 
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "completed":
+        return "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+      case "in_progress":
+        return "bg-blue-500/20 text-blue-400 border border-blue-500/30";
+      case "suspended":
+        return "bg-red-500/20 text-red-400 border border-red-500/30";
+      default:
+        return "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30";
+    }
+  };
+
   const fetchProjects = async () => {
     try {
       const response = await api.get("/api/v1/projects");
@@ -150,101 +163,95 @@ export default function Projects() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-gray-500">جاري التحميل...</div>
+      <div className="flex items-center justify-center h-64" dir="rtl">
+        <div className="text-[#8a95aa]">جاري التحميل...</div>
       </div>
     );
   }
 
   return (
-    <div>
+    <div dir="rtl">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">المشروعات</h1>
+        <h1 className="text-2xl font-bold text-[#e8eef4]">المشروعات</h1>
         <button
           onClick={openCreateModal}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+          className="bg-[#f5a623] text-[#0e1117] px-4 py-2 rounded-lg hover:bg-[#d4921e] font-medium"
         >
           + إضافة مشروع
         </button>
       </div>
 
-      <div className="bg-white rounded-lg shadow overflow-hidden">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+      <div className="bg-[#161c27] rounded-lg border border-[#2a3448] overflow-hidden">
+        <table className="min-w-full divide-y divide-[#2a3448]">
+          <thead className="bg-[#1e2738]">
             <tr>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                 اسم المشروع
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                 رمز المشروع
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                 الحالة
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                 الميزانية
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                 تاريخ البداية
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                 تاريخ النهاية
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                 الإجراءات
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-[#161c27] divide-y divide-[#2a3448]">
             {projects.map((project) => (
-              <tr key={project.projectId} className="hover:bg-gray-50">
+              <tr key={project.projectId} className="hover:bg-[#1e2738]">
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900">
+                  <div className="text-sm font-medium text-[#e8eef4]">
                     {project.projectName}
                   </div>
                   {project.clientName && (
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-[#8a95aa]">
                       {project.clientName}
                     </div>
                   )}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-[#8a95aa]">
                   {project.projectCode}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span
-                    className={`px-2 py-1 text-xs rounded-full ${
-                      project.status === "completed"
-                        ? "bg-green-100 text-green-800"
-                        : project.status === "in_progress"
-                          ? "bg-blue-100 text-blue-800"
-                          : project.status === "suspended"
-                            ? "bg-red-100 text-red-800"
-                            : "bg-yellow-100 text-yellow-800"
-                    }`}
+                    className={`px-2 py-1 text-xs rounded-full ${getStatusColor(
+                      project.status,
+                    )}`}
                   >
                     {statusLabels[project.status] || project.status}
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-[#8a95aa]">
                   {formatCurrency(project.budget)}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-[#8a95aa]">
                   {formatDate(project.startDate)}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-[#8a95aa]">
                   {formatDate(project.endDate)}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm">
                   <button
                     onClick={() => handleEdit(project)}
-                    className="text-blue-600 hover:text-blue-900 ml-3"
+                    className="text-[#f5a623] hover:text-[#d4921e] ml-3"
                   >
                     تعديل
                   </button>
                   <button
                     onClick={() => handleDelete(project.projectId)}
-                    className="text-red-600 hover:text-red-900"
+                    className="text-red-400 hover:text-red-300"
                   >
                     حذف
                   </button>
@@ -253,7 +260,7 @@ export default function Projects() {
             ))}
             {projects.length === 0 && (
               <tr>
-                <td colSpan={7} className="px-6 py-4 text-center text-gray-500">
+                <td colSpan={7} className="px-6 py-4 text-center text-[#8a95aa]">
                   لا توجد مشروعات
                 </td>
               </tr>
@@ -263,15 +270,15 @@ export default function Projects() {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <h2 className="text-xl font-bold mb-4">
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+          <div className="bg-[#161c27] rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-[#2a3448]">
+            <h2 className="text-xl font-bold mb-4 text-[#e8eef4]">
               {editingProject ? "تعديل مشروع" : "إضافة مشروع جديد"}
             </h2>
             <form onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     اسم المشروع *
                   </label>
                   <input
@@ -281,11 +288,11 @@ export default function Projects() {
                     onChange={(e) =>
                       setFormData({ ...formData, projectName: e.target.value })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     رمز المشروع *
                   </label>
                   <input
@@ -295,11 +302,11 @@ export default function Projects() {
                     onChange={(e) =>
                       setFormData({ ...formData, projectCode: e.target.value })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     اسم العميل
                   </label>
                   <input
@@ -308,11 +315,11 @@ export default function Projects() {
                     onChange={(e) =>
                       setFormData({ ...formData, clientName: e.target.value })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     الحالة
                   </label>
                   <select
@@ -323,7 +330,7 @@ export default function Projects() {
                         status: e.target.value as ProjectFormData["status"],
                       })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   >
                     <option value="planning">تخطيط</option>
                     <option value="in_progress">قيد التنفيذ</option>
@@ -332,7 +339,7 @@ export default function Projects() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     الميزانية
                   </label>
                   <input
@@ -344,11 +351,11 @@ export default function Projects() {
                         budget: Number(e.target.value),
                       })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     قيمة العقد
                   </label>
                   <input
@@ -360,11 +367,11 @@ export default function Projects() {
                         contractValue: Number(e.target.value),
                       })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     تاريخ البداية
                   </label>
                   <input
@@ -373,11 +380,11 @@ export default function Projects() {
                     onChange={(e) =>
                       setFormData({ ...formData, startDate: e.target.value })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     تاريخ النهاية
                   </label>
                   <input
@@ -386,11 +393,11 @@ export default function Projects() {
                     onChange={(e) =>
                       setFormData({ ...formData, endDate: e.target.value })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     الموقع
                   </label>
                   <input
@@ -399,11 +406,11 @@ export default function Projects() {
                     onChange={(e) =>
                       setFormData({ ...formData, location: e.target.value })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     الوصف
                   </label>
                   <textarea
@@ -412,7 +419,7 @@ export default function Projects() {
                       setFormData({ ...formData, description: e.target.value })
                     }
                     rows={3}
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
               </div>
@@ -423,13 +430,13 @@ export default function Projects() {
                     setShowModal(false);
                     resetForm();
                   }}
-                  className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50"
+                  className="px-4 py-2 border border-[#2a3448] text-[#e8eef4] rounded hover:bg-[#1e2738]"
                 >
                   إلغاء
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                  className="px-4 py-2 bg-[#f5a623] text-[#0e1117] rounded hover:bg-[#d4921e] font-medium"
                 >
                   {editingProject ? "تحديث" : "إضافة"}
                 </button>

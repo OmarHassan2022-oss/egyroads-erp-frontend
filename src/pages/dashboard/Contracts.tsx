@@ -182,99 +182,99 @@ export default function Contracts() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "active":
-        return "bg-green-100 text-green-800";
+        return "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
       case "completed":
-        return "bg-blue-100 text-blue-800";
+        return "bg-blue-500/20 text-blue-400 border border-blue-500/30";
       case "terminated":
-        return "bg-red-100 text-red-800";
+        return "bg-red-500/20 text-red-400 border border-red-500/30";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-gray-500/20 text-gray-400 border border-gray-500/30";
     }
   };
 
   const getTypeColor = (type: string) => {
     switch (type) {
       case "FIDIC_RED_BOOK":
-        return "bg-red-100 text-red-800";
+        return "bg-red-500/20 text-red-400 border border-red-500/30";
       case "FIDIC_YELLOW_BOOK":
-        return "bg-yellow-100 text-yellow-800";
+        return "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30";
       case "FIDIC_SILVER_BOOK":
-        return "bg-gray-100 text-gray-800";
+        return "bg-gray-500/20 text-gray-400 border border-gray-500/30";
       default:
-        return "bg-purple-100 text-purple-800";
+        return "bg-purple-500/20 text-purple-400 border border-purple-500/30";
     }
   };
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-gray-500">جاري التحميل...</div>
+      <div className="flex items-center justify-center h-64" dir="rtl">
+        <div className="text-[#8a95aa]">جاري التحميل...</div>
       </div>
     );
   }
 
   return (
-    <div>
+    <div dir="rtl">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">العقود (فيديك)</h1>
+        <h1 className="text-2xl font-bold text-[#e8eef4]">العقود (فيديك)</h1>
         <button
           onClick={openCreateModal}
-          className="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700"
+          className="bg-[#f5a623] text-[#0e1117] px-4 py-2 rounded-lg hover:bg-[#d4921e] font-medium"
         >
           + إضافة عقد
         </button>
       </div>
 
-      <div className="bg-white rounded-lg shadow overflow-hidden">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+      <div className="bg-[#161c27] rounded-lg border border-[#2a3448] overflow-hidden">
+        <table className="min-w-full divide-y divide-[#2a3448]">
+          <thead className="bg-[#1e2738]">
             <tr>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                 رقم العقد
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                 اسم العقد
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                 المشروع
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                 نوع العقد
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                 القيمة
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                 تاريخ البداية
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                 تاريخ النهاية
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                 الحالة
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+              <th className="px-6 py-3 text-right text-xs font-medium text-[#8a95aa] uppercase">
                 الإجراءات
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-[#161c27] divide-y divide-[#2a3448]">
             {contracts.map((contract) => (
-              <tr key={contract.contractId} className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+              <tr key={contract.contractId} className="hover:bg-[#1e2738]">
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#e8eef4]">
                   {contract.contractNumber}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900">
+                  <div className="text-sm font-medium text-[#e8eef4]">
                     {contract.contractName}
                   </div>
                   {contract.clientName && (
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-[#8a95aa]">
                       العميل: {contract.clientName}
                     </div>
                   )}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-[#8a95aa]">
                   {contract.projectName || contract.projectId}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
@@ -287,13 +287,13 @@ export default function Contracts() {
                       contract.contractType}
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-[#8a95aa]">
                   {formatCurrency(contract.contractValue)}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-[#8a95aa]">
                   {formatDate(contract.startDate)}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-[#8a95aa]">
                   {formatDate(contract.endDate)}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
@@ -308,13 +308,13 @@ export default function Contracts() {
                 <td className="px-6 py-4 whitespace-nowrap text-sm">
                   <button
                     onClick={() => handleEdit(contract)}
-                    className="text-blue-600 hover:text-blue-900 ml-3"
+                    className="text-[#f5a623] hover:text-[#d4921e] ml-3"
                   >
                     تعديل
                   </button>
                   <button
                     onClick={() => handleDelete(contract.contractId)}
-                    className="text-red-600 hover:text-red-900"
+                    className="text-red-400 hover:text-red-300"
                   >
                     حذف
                   </button>
@@ -323,7 +323,7 @@ export default function Contracts() {
             ))}
             {contracts.length === 0 && (
               <tr>
-                <td colSpan={9} className="px-6 py-4 text-center text-gray-500">
+                <td colSpan={9} className="px-6 py-4 text-center text-[#8a95aa]">
                   لا توجد عقود
                 </td>
               </tr>
@@ -333,15 +333,15 @@ export default function Contracts() {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <h2 className="text-xl font-bold mb-4">
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+          <div className="bg-[#161c27] rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-[#2a3448]">
+            <h2 className="text-xl font-bold mb-4 text-[#e8eef4]">
               {editingContract ? "تعديل عقد" : "إضافة عقد جديد"}
             </h2>
             <form onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     رقم العقد *
                   </label>
                   <input
@@ -354,11 +354,11 @@ export default function Contracts() {
                         contractNumber: e.target.value,
                       })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     اسم العقد *
                   </label>
                   <input
@@ -368,11 +368,11 @@ export default function Contracts() {
                     onChange={(e) =>
                       setFormData({ ...formData, contractName: e.target.value })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     المشروع *
                   </label>
                   <select
@@ -381,7 +381,7 @@ export default function Contracts() {
                     onChange={(e) =>
                       setFormData({ ...formData, projectId: e.target.value })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   >
                     <option value="">اختر المشروع</option>
                     {projects.map((project) => (
@@ -392,7 +392,7 @@ export default function Contracts() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     نوع العقد
                   </label>
                   <select
@@ -404,7 +404,7 @@ export default function Contracts() {
                           .value as ContractFormData["contractType"],
                       })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   >
                     <option value="FIDIC_RED_BOOK">فيديك الكتاب الأحمر</option>
                     <option value="FIDIC_YELLOW_BOOK">
@@ -417,7 +417,7 @@ export default function Contracts() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     الحالة
                   </label>
                   <select
@@ -428,7 +428,7 @@ export default function Contracts() {
                         status: e.target.value as ContractFormData["status"],
                       })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   >
                     <option value="draft">مسودة</option>
                     <option value="active">نشط</option>
@@ -437,7 +437,7 @@ export default function Contracts() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     قيمة العقد
                   </label>
                   <input
@@ -449,11 +449,11 @@ export default function Contracts() {
                         contractValue: Number(e.target.value),
                       })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     تاريخ البداية
                   </label>
                   <input
@@ -462,11 +462,11 @@ export default function Contracts() {
                     onChange={(e) =>
                       setFormData({ ...formData, startDate: e.target.value })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     تاريخ النهاية
                   </label>
                   <input
@@ -475,11 +475,11 @@ export default function Contracts() {
                     onChange={(e) =>
                       setFormData({ ...formData, endDate: e.target.value })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     اسم العميل
                   </label>
                   <input
@@ -488,11 +488,11 @@ export default function Contracts() {
                     onChange={(e) =>
                       setFormData({ ...formData, clientName: e.target.value })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     اسم المقاول
                   </label>
                   <input
@@ -504,11 +504,11 @@ export default function Contracts() {
                         contractorName: e.target.value,
                       })
                     }
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-[#e8eef4] mb-1">
                     ملاحظات
                   </label>
                   <textarea
@@ -517,7 +517,7 @@ export default function Contracts() {
                       setFormData({ ...formData, notes: e.target.value })
                     }
                     rows={3}
-                    className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    className="w-full border border-[#2a3448] rounded px-3 py-2 bg-[#0e1117] text-[#e8eef4] focus:outline-none focus:ring-2 focus:ring-[#f5a623]"
                   />
                 </div>
               </div>
@@ -528,13 +528,13 @@ export default function Contracts() {
                     setShowModal(false);
                     resetForm();
                   }}
-                  className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50"
+                  className="px-4 py-2 border border-[#2a3448] text-[#e8eef4] rounded hover:bg-[#1e2738]"
                 >
                   إلغاء
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-700"
+                  className="px-4 py-2 bg-[#f5a623] text-[#0e1117] rounded hover:bg-[#d4921e] font-medium"
                 >
                   {editingContract ? "تحديث" : "إضافة"}
                 </button>
