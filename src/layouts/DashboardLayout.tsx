@@ -1,6 +1,5 @@
-import { Outlet, Link, useNavigate } from "react-router-dom";
+import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState, useMemo } from "react";
-import { useTheme } from "../context/ThemeContext";
 import type { User } from "../types";
 
 const getUserFromStorage = (): User | null => {
@@ -10,13 +9,13 @@ const getUserFromStorage = (): User | null => {
 
 export default function DashboardLayout() {
   const navigate = useNavigate();
-  const { theme, toggleTheme } = useTheme();
+  const location = useLocation();
   const user = useMemo(() => {
     const token = localStorage.getItem("token");
     if (!token) return null;
     return getUserFromStorage();
   }, []);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [selectedProject, setSelectedProject] = useState("all");
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {
@@ -24,128 +23,113 @@ export default function DashboardLayout() {
     }
   }, [navigate]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate("/login");
-  };
-
-  if (!user) return null;
+  if (!user && !localStorage.getItem("token")) return null;
 
   const menuItems = [
-    { name: "الرئيسية", icon: "📊", path: "/dashboard" },
-    { name: "المشروعات", icon: "🏗️", path: "/dashboard/projects" },
-    { name: "العقود", icon: "📄", path: "/dashboard/contracts" },
-    { name: "المستخلصات", icon: "💰", path: "/dashboard/ipcs" },
-    { name: "المعدات", icon: "🚜", path: "/dashboard/equipment" },
-    { name: "اللوازم", icon: "📦", path: "/dashboard/supplies" },
-    { name: "المقاولين", icon: "👷", path: "/dashboard/subcontractors" },
-    { name: "سلسلة التوريد", icon: "🚚", path: "/dashboard/supply-chain" },
-    { name: "التقارير", icon: "📈", path: "/dashboard/reports" },
+    { section: "الرئيسية", items: [
+      { name: "لوحة القيادة", icon: "📊", path: "/dashboard" },
+    ]},
+    { section: "إدارة المشاريع", items: [
+      { name: "المشاريع", icon: "🏗️", path: "/dashboard/projects" },
+      { name: "العقود والمستخلصات", icon: "📋", path: "/dashboard/contracts" },
+      { name: "المكتب الفني — BOQ", icon: "📐", path: "/dashboard/ipcs" },
+    ]},
+    { section: "العمليات الميدانية", items: [
+      { name: "تسليمات AI", icon: "🤖", path: "/dashboard/ai-deliveries", badge: "3" },
+      { name: "نظام المركبات OCR", icon: "🚚", path: "/dashboard/ocr", badge: "7" },
+      { name: "المعدات والآليات", icon: "🔧", path: "/dashboard/equipment" },
+    ]},
+    { section: "الإدارة", items: [
+      { name: "التوريدات والمخازن", icon: "🏪", path: "/dashboard/supplies" },
+      { name: "الموارد البشرية", icon: "👷", path: "/dashboard/hr" },
+      { name: "مقاولو الباطن", icon: "🤝", path: "/dashboard/subcontractors" },
+      { name: "الحسابات والمالية", icon: "💰", path: "/dashboard/finance" },
+    ]},
+    { section: "النظام", items: [
+      { name: "الإعدادات", icon: "⚙️", path: "/dashboard/settings" },
+      { name: "دليل المستخدم", icon: "❓", path: "/dashboard/help" },
+    ]},
   ];
 
+  const isActive = (path: string) => {
+    if (path === "/dashboard") {
+      return location.pathname === "/dashboard" || location.pathname === "/dashboard/";
+    }
+    return location.pathname === path;
+  };
+
+  const getTitle = () => {
+    if (selectedProject === "all") return "لوحة القيادة التنفيذية";
+    const projects: Record<string, string> = {
+      p1: "محور الضبعة — امتداد",
+      p2: "طريق العاشر — إنشاء",
+      p3: "كوبري العبور — صيانة"
+    };
+    return "مشروع: " + (projects[selectedProject] || "جميع المشاريع");
+  };
+
   return (
-    <div
-      dir="rtl"
-      className={`min-h-screen flex ${
-        theme === "dark" ? "bg-slate-900" : "bg-gray-50"
-      }`}
-    >
-      <div
-        className={`${
-          sidebarOpen ? "w-64" : "w-20"
-        } bg-gradient-to-b from-orange-600 to-amber-700 text-white transition-all duration-300 fixed top-0 bottom-0 end-0 z-50`}
-        style={{ right: 0 }}
-      >
-        <div className="p-4 border-b border-orange-500/30">
-          <h1 className="text-xl font-bold">EgyRoads ERP</h1>
-          <p className="text-sm text-orange-100">نظام المقاولات</p>
+    <div dir="rtl" className="min-h-screen flex" style={{ background: "var(--bg)" }}>
+      <aside className="sidebar">
+        <div className="sidebar-logo">
+          <div className="logo-mark">EgyRoads</div>
+          <div className="logo-sub">ERP — نظام إدارة الطرق</div>
         </div>
 
-        <nav className="mt-4">
-          {menuItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className="flex items-center px-4 py-3 hover:bg-orange-500/30 text-orange-100 hover:text-white rounded-md mx-2 transition-colors"
-            >
-              <span className="text-xl ms-3">{item.icon}</span>
-              {sidebarOpen && <span>{item.name}</span>}
-            </Link>
-          ))}
-        </nav>
+        {menuItems.map((section) => (
+          <div key={section.section}>
+            <div className="sidebar-section">{section.section}</div>
+            {section.items.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`nav-item ${isActive(item.path) ? 'active' : ''}`}
+              >
+                <span className="nav-icon">{item.icon}</span>
+                {item.name}
+                {item.badge && <span className="nav-badge">{item.badge}</span>}
+              </Link>
+            ))}
+          </div>
+        ))}
 
-        <div className="absolute bottom-0 w-full p-4 border-t border-orange-500/30">
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="w-full py-2 bg-orange-500/50 rounded mb-2 hover:bg-orange-500 transition-colors"
-          >
-            {sidebarOpen ? "إخفاء" : "إظهار"}
-          </button>
-          <button
-            onClick={handleLogout}
-            className="w-full py-2 bg-red-500/80 rounded hover:bg-red-600 transition-colors"
-          >
-            خروج
-          </button>
+        <div className="sidebar-footer">
+          <div className="user-info">
+            <div className="avatar">ح م</div>
+            <div>
+              <div className="user-name">م. حسن محمد</div>
+              <div className="user-role">مدير عام</div>
+            </div>
+          </div>
         </div>
-      </div>
+      </aside>
 
-      <div
-        className="flex-1 flex flex-col transition-all duration-300"
-        style={{ marginRight: sidebarOpen ? "16rem" : "5rem" }}
-      >
-        <header
-          className={`shadow-sm p-4 flex justify-between items-center ${
-            theme === "dark" ? "bg-slate-800" : "bg-white"
-          }`}
-        >
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-              className={`text-2xl ${
-                theme === "dark" ? "text-orange-400" : "text-orange-600"
-              } hover:opacity-80`}
-            >
-              ☰
-            </button>
+      <div className="main">
+        <div className="topbar">
+          <div>
+            <div className="topbar-title">{getTitle()}</div>
           </div>
-          <div className="flex items-center gap-4">
-            <button
-              onClick={toggleTheme}
-              className={`p-2 rounded-full transition-colors ${
-                theme === "dark"
-                  ? "bg-slate-700 hover:bg-slate-600 text-yellow-400"
-                  : "bg-orange-100 hover:bg-orange-200 text-orange-600"
-              }`}
-              title={theme === "dark" ? "الوضع الفاتح" : "الوضع الداكن"}
+          <div className="topbar-right">
+            <select 
+              className="project-selector" 
+              value={selectedProject}
+              onChange={(e) => setSelectedProject(e.target.value)}
             >
-              {theme === "dark" ? "☀️" : "🌙"}
+              <option value="all">جميع المشاريع</option>
+              <option value="p1">محور الضبعة — امتداد</option>
+              <option value="p2">طريق العاشر — إنشاء</option>
+              <option value="p3">كوبري العبور — صيانة</option>
+            </select>
+            <button className="topbar-btn" title="تنبيهات">
+              🔔
+              <span className="notif-dot"></span>
             </button>
-            <span
-              className={
-                theme === "dark" ? "text-gray-200" : "text-gray-700"
-              }
-            >
-              {user.fullName}
-            </span>
-            <span
-              className={`px-2 py-1 rounded text-sm ${
-                theme === "dark"
-                  ? "bg-orange-900/50 text-orange-300"
-                  : "bg-orange-100 text-orange-800"
-              }`}
-            >
-              {user.role}
-            </span>
+            <button className="topbar-btn" title="تصدير">📤</button>
+            <button className="topbar-btn" title="إعدادات">⚙️</button>
           </div>
-        </header>
+        </div>
 
-        <main
-          className={`p-6 flex-1 ${
-            theme === "dark" ? "bg-slate-900" : "bg-gray-50"
-          }`}
-        >
+        <main className="content">
           <Outlet />
         </main>
       </div>
